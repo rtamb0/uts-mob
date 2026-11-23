@@ -8,9 +8,10 @@ import androidx.room3.RoomDatabase
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.example.myapplication.data.local.dao.PlaceDao
 import com.example.myapplication.data.local.entity.PlaceEntity
+import com.example.myapplication.data.local.entity.BarangEntity
 
 @Database(
-    entities = [PlaceEntity::class],
+    entities = [BarangEntity::class, PlaceEntity::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -26,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "place_database"
+                    "database"
                 )
                     .setDriver(AndroidSQLiteDriver())
                     .build()
