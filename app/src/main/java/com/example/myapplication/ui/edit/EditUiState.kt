@@ -1,12 +1,12 @@
 package com.example.myapplication.ui.edit
 
 data class EditUiState(
-    val name: String = "",
-    val location: String = "",
-    val description: String = ""
+    val namaBarang: String = "",
+    val lokasiSimpan: String = "",
+    val keterangan: String = "",
+    val tersedia: Boolean = true
 ) {
     val isFormValid: Boolean
-        get() = name.isNotBlank() &&
-                location.isNotBlank() &&
-                description.isNotBlank()
+        get() = namaBarang.isNotBlank() &&
+                lokasiSimpan.isNotBlank()
 }

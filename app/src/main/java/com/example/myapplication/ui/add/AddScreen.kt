@@ -23,11 +23,12 @@ import com.example.myapplication.data.local.entity.BarangEntity
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object BarangAdd
+data object Add
+
 @Composable
-fun BarangAddScreen(
+fun AddScreen(
     barang: BarangEntity,
-    uiState: BarangAddUiState,
+    uiState: AddUiState,
     onNamaBarangChange: (String) -> Unit,
     onLokasiSimpanChange: (String) -> Unit,
     onKeteranganChange: (String) -> Unit,
@@ -35,7 +36,6 @@ fun BarangAddScreen(
     onBack: () -> Unit,
     onSave: () -> Unit
 ) {
-
     val scrollState = rememberScrollState()
 
     Column(

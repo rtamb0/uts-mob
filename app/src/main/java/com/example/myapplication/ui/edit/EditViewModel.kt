@@ -1,40 +1,48 @@
 package com.example.myapplication.ui.edit
 
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.local.entity.PlaceEntity
+import com.example.myapplication.data.local.entity.BarangEntity
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 class EditViewModel(
-    private val place: PlaceEntity
+    private val barang: BarangEntity
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(EditUiState(
-        name = place.name,
-        location = place.location,
-        description = place.description
-    ))
+    private val _uiState = MutableStateFlow(
+        EditUiState(
+            namaBarang = barang.namaBarang,
+            lokasiSimpan = barang.lokasiSimpan,
+            keterangan = barang.keterangan,
+            tersedia = barang.tersedia
+        )
+    )
 
     val uiState = _uiState.asStateFlow()
 
-    fun onNameChange(value: String) {
-        _uiState.update { it.copy(name = value) }
+    fun onNamaBarangChange(value: String) {
+        _uiState.update { it.copy(namaBarang = value) }
     }
 
-    fun onLocationChange(value: String) {
-        _uiState.update { it.copy(location = value) }
+    fun onLokasiSimpanChange(value: String) {
+        _uiState.update { it.copy(lokasiSimpan = value) }
     }
 
-    fun onDescriptionChange(value: String) {
-        _uiState.update { it.copy(description = value) }
+    fun onKeteranganChange(value: String) {
+        _uiState.update { it.copy(keterangan = value) }
     }
 
-    fun onSave(): PlaceEntity? {
+    fun onTersediaChange(value: Boolean) {
+        _uiState.update { it.copy(tersedia = value) }
+    }
+
+    fun onSave(): BarangEntity? {
         if (!_uiState.value.isFormValid) return null
-        place.name = _uiState.value.name
-        place.location = _uiState.value.location
-        place.description = _uiState.value.description
+        barang.namaBarang = _uiState.value.namaBarang
+        barang.lokasiSimpan = _uiState.value.lokasiSimpan
+        barang.keterangan = _uiState.value.keterangan
+        barang.tersedia = _uiState.value.tersedia
 
-        return place
+        return barang
     }
 }

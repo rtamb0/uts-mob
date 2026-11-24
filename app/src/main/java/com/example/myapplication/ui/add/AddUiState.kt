@@ -1,6 +1,6 @@
-package com.example.myapplication.ui.edit
+package com.example.myapplication.ui.add
 
-data class BarangEditUiState(
+data class AddUiState(
     val namaBarang: String = "",
     val lokasiSimpan: String = "",
     val keterangan: String = "",

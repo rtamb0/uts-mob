@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.edit
+package com.example.myapplication.ui.add
 
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.local.entity.BarangEntity
@@ -6,15 +6,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class BarangEditViewModel(
+class AddViewModel(
     private val barang: BarangEntity
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(BarangEditUiState(
-        namaBarang = barang.namaBarang,
-        lokasiSimpan = barang.lokasiSimpan,
-        keterangan = barang.keterangan,
-        tersedia = barang.tersedia
-    ))
+    private val _uiState = MutableStateFlow(
+        AddUiState(
+            namaBarang = barang.namaBarang,
+            lokasiSimpan = barang.lokasiSimpan,
+            keterangan = barang.keterangan,
+            tersedia = barang.tersedia
+        )
+    )
 
     val uiState = _uiState.asStateFlow()
 

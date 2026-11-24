@@ -1,4 +1,3 @@
-
 package com.example.myapplication.data.local.database
 
 import android.content.Context
@@ -7,17 +6,14 @@ import androidx.room3.Room
 import androidx.room3.RoomDatabase
 import androidx.sqlite.driver.AndroidSQLiteDriver
 import com.example.myapplication.data.local.dao.BarangDao
-import com.example.myapplication.data.local.dao.PlaceDao
-import com.example.myapplication.data.local.entity.PlaceEntity
 import com.example.myapplication.data.local.entity.BarangEntity
 
 @Database(
-    entities = [BarangEntity::class, PlaceEntity::class],
+    entities = [BarangEntity::class],
     version = 1
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun placeDao(): PlaceDao
     abstract fun barangDao(): BarangDao
 
     companion object {

@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,17 +13,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.data.local.entity.PlaceEntity
+import com.example.myapplication.data.local.entity.BarangEntity
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class Detail(val id: Int)
-@Composable
-fun DetailScreen(place: PlaceEntity, onBack: () -> Unit, onEdit: () -> Unit) {
 
+@Composable
+fun DetailScreen(barang: BarangEntity, onBack: () -> Unit, onEdit: () -> Unit) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -42,18 +39,14 @@ fun DetailScreen(place: PlaceEntity, onBack: () -> Unit, onEdit: () -> Unit) {
                 modifier = Modifier.padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Image(
-                    painter = painterResource(id = place.imageId),
-                    contentDescription = place.name,
-                    modifier = Modifier.fillMaxWidth(),
-                    contentScale = ContentScale.Fit
-                )
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Column {
-                        Text(place.name, style = MaterialTheme.typography.titleMedium)
-                        Text(place.location, style = MaterialTheme.typography.bodySmall)
+                        Text(barang.namaBarang, style = MaterialTheme.typography.titleMedium)
+                        Text(barang.lokasiSimpan, style = MaterialTheme.typography.bodySmall)
                     }
-                    Text(place.description, style = MaterialTheme.typography.bodyMedium)
+                    barang.keterangan?.takeIf { it.isNotBlank() }?.let {
+                        Text(it, style = MaterialTheme.typography.bodyMedium)
+                    }
                 }
                 Button(
                     onClick = onEdit,

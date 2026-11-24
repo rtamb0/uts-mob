@@ -10,60 +10,89 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.myapplication.PlaceApplication
-import com.example.myapplication.ui.home.HomeScreen
-import com.example.myapplication.ui.home.Home
-import com.example.myapplication.ui.detail.DetailScreen
+import com.example.myapplication.BarangApplication
+import com.example.myapplication.ui.add.Add
+import com.example.myapplication.ui.add.AddRoute
 import com.example.myapplication.ui.detail.Detail
+import com.example.myapplication.ui.detail.DetailScreen
 import com.example.myapplication.ui.edit.Edit
 import com.example.myapplication.ui.edit.EditRoute
-import com.example.myapplication.ui.viewmodel.PlaceViewModel
+import com.example.myapplication.ui.home.Home
+import com.example.myapplication.ui.home.HomeScreen
+import com.example.myapplication.ui.viewmodel.BarangViewModel
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    val application = LocalContext.current.applicationContext as PlaceApplication
+    val application = LocalContext.current.applicationContext as BarangApplication
 
-    val placeViewModel = viewModel {
-        PlaceViewModel(application.placeRepository)
+    val barangViewModel = viewModel {
+        BarangViewModel(application.barangRepository)
     }
 
     NavHost(
         navController = navController,
         startDestination = Home
     ) {
-        composable<Home> { HomeScreen(
-            placeViewModel.places,
-            onOpenDetail = { id ->
-                navController.navigate(Detail(id = id))
-            }
-        ) }
-        composable<Detail> {  entry ->
-            val route = entry.toRoute<Detail>()
-            val places by placeViewModel.places.collectAsStateWithLifecycle()
-            val place = places.find { it.id == route.id }
+        composable<Home> {
+            val barang by barangViewModel.barang.collectAsStateWithLifecycle()
 
-            if (place != null) {
-                DetailScreen(place, { navController.popBackStack() }, { navController.navigate(Edit(id = place.id)) })
+            HomeScreen(
+                barang,
+                onTersediaChange = { updatedBarang ->
+                    barangViewModel.updateBarang(
+                        updatedBarang
+                    )
+                },
+                onOpenDetail = { id ->
+                    navController.navigate(Detail(id = id))
+                },
+                onAdd = {
+                    navController.navigate(Add)
+                }
+            )
+        }
+        composable<Add> {
+            AddRoute(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onSave = { newBarang ->
+                    if (newBarang == null) return@AddRoute
+                    barangViewModel.addBarang(newBarang)
+                }
+            )
+        }
+        composable<Detail> { entry ->
+            val route = entry.toRoute<Detail>()
+            val barang by barangViewModel.barang.collectAsStateWithLifecycle()
+            val selectedBarang = barang.find { it.id == route.id }
+
+            if (selectedBarang != null) {
+                DetailScreen(
+                    selectedBarang,
+                    { navController.popBackStack() },
+                    { navController.navigate(Edit(id = selectedBarang.id)) }
+                )
             } else {
                 Text("Item not found")
             }
         }
-        composable<Edit> {  entry ->
+        composable<Edit> { entry ->
             val route = entry.toRoute<Edit>()
-            val places by placeViewModel.places.collectAsStateWithLifecycle()
-            val place = places.find { it.id == route.id }
+            val barang by barangViewModel.barang.collectAsStateWithLifecycle()
+            val selectedBarang = barang.find { it.id == route.id }
 
-            if (place != null) {
+            if (selectedBarang != null) {
                 EditRoute(
-                    place = place,
+                    barang = selectedBarang,
                     onBack = {
                         navController.popBackStack()
                     },
-                    onSave = { updatedPlace ->
-                        if (updatedPlace == null) return@EditRoute
-                        placeViewModel.updatePlace(updatedPlace)
+                    onSave = { updatedBarang ->
+                        if (updatedBarang == null) return@EditRoute
+                        barangViewModel.updateBarang(updatedBarang)
                     }
                 )
             } else {

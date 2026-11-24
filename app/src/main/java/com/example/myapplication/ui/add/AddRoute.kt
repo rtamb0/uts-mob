@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.edit
+package com.example.myapplication.ui.add
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -7,14 +7,21 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.local.entity.BarangEntity
 
 @Composable
-fun BarangEditRoute(barang: BarangEntity, onBack: () -> Unit, onSave: (BarangEntity?) -> Unit) {
+fun AddRoute(onBack: () -> Unit, onSave: (BarangEntity?) -> Unit) {
+    val barang = BarangEntity(
+        namaBarang = "",
+        lokasiSimpan = "",
+        keterangan = "",
+        tersedia = true
+    )
+
     val viewModel = viewModel {
-        BarangEditViewModel(barang)
+        AddViewModel(barang)
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    BarangEditScreen(
+    AddScreen(
         barang = barang,
         uiState = uiState,
         onNamaBarangChange = viewModel::onNamaBarangChange,
