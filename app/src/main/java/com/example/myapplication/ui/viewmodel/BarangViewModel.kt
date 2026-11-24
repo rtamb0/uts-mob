@@ -12,7 +12,7 @@ class BarangViewModel(
     private val repository: BarangRepository
 ) : ViewModel() {
 
-    val places = repository.barang
+    val barang = repository.barang
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -25,21 +25,21 @@ class BarangViewModel(
         }
     }
 
-    fun addPlace(place: BarangEntity) {
+    fun addBarang(barang: BarangEntity) {
         viewModelScope.launch {
-            repository.add(place)
+            repository.add(barang)
         }
     }
 
-    fun removePlace(place: BarangEntity) {
+    fun removeBarang(barang: BarangEntity) {
         viewModelScope.launch {
-            repository.remove(place)
+            repository.remove(barang)
         }
     }
 
-    fun updatePlace(place: BarangEntity) {
+    fun updateBarang(barang: BarangEntity) {
         viewModelScope.launch {
-            repository.update(place)
+            repository.update(barang)
         }
     }
 }
