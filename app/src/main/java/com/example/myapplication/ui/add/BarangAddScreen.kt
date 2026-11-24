@@ -23,7 +23,7 @@ import com.example.myapplication.data.local.entity.BarangEntity
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BarangAdd(val id: Int)
+data object BarangAdd
 @Composable
 fun BarangAddScreen(
     barang: BarangEntity,

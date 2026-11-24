@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -19,12 +21,20 @@ import kotlinx.serialization.Serializable
 @Serializable
 object BarangHome
 @Composable
-fun BarangHomeScreen(barangList: List<BarangEntity>, onTersediaChange: (BarangEntity) -> Unit, onOpenDetail: (Int) -> Unit) {
+fun BarangHomeScreen(
+    barangList: List<BarangEntity>,
+    onTersediaChange: (BarangEntity) -> Unit,
+    onOpenDetail: (Int) -> Unit,
+    onAdd: () -> Unit
+) {
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        Button(onClick = onAdd) {
+            Text("Add")
+        }
         LazyVerticalGrid(columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
