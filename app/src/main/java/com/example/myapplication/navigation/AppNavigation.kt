@@ -97,7 +97,12 @@ fun AppNavigation(compactView : Boolean) {
                     },
                     onDelete = {
                         barangViewModel.removeBarang(selectedBarang)
-                        navController.navigate(Home)
+                        navController.navigate(Home) {
+                            popUpTo<Home> {
+                                inclusive = false
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 )
             } else {
