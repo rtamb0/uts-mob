@@ -6,6 +6,7 @@ import androidx.room3.Database
 import androidx.room3.Room
 import androidx.room3.RoomDatabase
 import androidx.sqlite.driver.AndroidSQLiteDriver
+import com.example.myapplication.data.local.dao.BarangDao
 import com.example.myapplication.data.local.dao.PlaceDao
 import com.example.myapplication.data.local.entity.PlaceEntity
 import com.example.myapplication.data.local.entity.BarangEntity
@@ -17,6 +18,7 @@ import com.example.myapplication.data.local.entity.BarangEntity
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun placeDao(): PlaceDao
+    abstract fun barangDao(): BarangDao
 
     companion object {
         @Volatile
