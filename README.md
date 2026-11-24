@@ -1,3 +1,6 @@
+# Ralf Fadilla - 0112523048
+# TOPIK C — INVENTARIS BARANG PRIBADI
+
 # BarangKu Application
 
 Aplikasi Android berbasis **Jetpack Compose**, **Navigation Compose (Type-Safe Navigation)**, **Room 3 (Local Database)**, **Preferences DataStore**, **Architecture Components (ViewModel, StateFlow & Repository Pattern)**, dan **Material 3** untuk pencatatan dan pengelolaan inventaris barang (BarangKu).
