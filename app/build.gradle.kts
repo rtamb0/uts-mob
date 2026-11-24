@@ -22,6 +22,7 @@ dependencies {
     ksp(libs.androidx.room3.compiler)
 
     implementation(libs.androidx.sqlite.framework)
+    implementation("androidx.datastore:datastore-preferences:1.3.0")
 }
 
 android {
