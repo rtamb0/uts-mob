@@ -110,7 +110,7 @@ fun EditScreen(
                 ) {
                     Text("Tersedia?")
                     Checkbox(
-                        barang.tersedia,
+                        uiState.tersedia,
                         onTersediaChange,
                         modifier = Modifier.scale(0.8f)
                     )
