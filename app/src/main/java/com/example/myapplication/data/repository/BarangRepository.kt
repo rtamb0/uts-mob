@@ -6,7 +6,7 @@ import com.example.myapplication.data.local.source.BarangData.initialBarang
 import kotlinx.coroutines.flow.Flow
 
 class BarangRepository(private val dao: BarangDao) {
-    val places: Flow<List<BarangEntity>> = dao.observeAll()
+    val barang: Flow<List<BarangEntity>> = dao.observeAll()
 
     suspend fun add(item: BarangEntity) = dao.insert(item)
 
