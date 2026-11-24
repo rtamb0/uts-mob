@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BarangDao {
-    @Query("SELECT * FROM barang ORDER BY namaBarang")
+    @Query("SELECT * FROM barang")
     fun observeAll(): Flow<List<BarangEntity>>
 
     @Query("SELECT COUNT(*) FROM barang")
