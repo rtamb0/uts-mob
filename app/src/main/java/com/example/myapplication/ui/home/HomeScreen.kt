@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.data.local.entity.BarangEntity
@@ -25,6 +27,10 @@ fun HomeScreen(
     onOpenDetail: (Int) -> Unit,
     onAdd: () -> Unit
 ) {
+    val sortedBarangList = remember(barangList) {
+        barangList.sortedByDescending { it.id }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,12 +45,15 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             content = {
-                items(barangList.size) { index ->
+                items(
+                    items = sortedBarangList,
+                    key = { it.id }
+                ) { barang ->
                     BarangCard(
-                        barangList[index],
+                        barang = barang,
                         onTersediaChange = {
                             onTersediaChange(
-                                barangList[index].copy(tersedia = it)
+                                barang.copy(tersedia = it)
                             )
                         },
                         onOpenDetail = onOpenDetail
