@@ -9,12 +9,18 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -34,9 +40,34 @@ fun EditScreen(
     onKeteranganChange: (String) -> Unit,
     onTersediaChange: (Boolean) -> Unit,
     onBack: () -> Unit,
-    onSave: () -> Unit
+    onSave: () -> Unit,
+    onDelete: () -> Unit
 ) {
     val scrollState = rememberScrollState()
+    var showDialog by remember { mutableStateOf(false) }
+
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Confirm Deletion") },
+            text = { Text("Are you sure you want to delete this item? This action cannot be undone.") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDelete()
+                        showDialog = false
+                    }
+                ) {
+                    Text("Yes")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDialog = false }) {
+                    Text("No")
+                }
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -84,16 +115,31 @@ fun EditScreen(
                         modifier = Modifier.scale(0.8f)
                     )
                 }
-                Button(
-                    onClick = {
-                        onSave()
-                        onBack()
-                    },
-                    enabled = uiState.isFormValid,
-                    modifier = Modifier.fillMaxWidth()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Text("Save")
+                    Button(
+                        onClick = {
+                            onSave()
+                            onBack()
+                        },
+                        enabled = uiState.isFormValid,
+                    ) {
+                        Text("Save")
+                    }
+                    Button(
+                        onClick = {
+                            showDialog = true
+                        },
+                        colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                            containerColor = androidx.compose.material3.MaterialTheme.colorScheme.error
+                        )
+                    ) {
+                        Text("Delete")
+                    }
                 }
+
             }
         }
     }

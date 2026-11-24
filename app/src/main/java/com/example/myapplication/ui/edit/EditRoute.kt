@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.data.local.entity.BarangEntity
 
 @Composable
-fun EditRoute(barang: BarangEntity, onBack: () -> Unit, onSave: (BarangEntity?) -> Unit) {
+fun EditRoute(barang: BarangEntity, onBack: () -> Unit, onSave: (BarangEntity?) -> Unit, onDelete: ()-> Unit) {
     val viewModel = viewModel {
         EditViewModel(barang)
     }
@@ -24,6 +24,7 @@ fun EditRoute(barang: BarangEntity, onBack: () -> Unit, onSave: (BarangEntity?) 
         onBack = onBack,
         onSave = {
             viewModel.onSave().let(onSave)
-        }
+        },
+        onDelete = onDelete
     )
 }

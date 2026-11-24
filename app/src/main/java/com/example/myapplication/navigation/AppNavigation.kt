@@ -94,6 +94,10 @@ fun AppNavigation(compactView : Boolean) {
                     onSave = { updatedBarang ->
                         if (updatedBarang == null) return@EditRoute
                         barangViewModel.updateBarang(updatedBarang)
+                    },
+                    onDelete = {
+                        barangViewModel.removeBarang(selectedBarang)
+                        navController.navigate(Home)
                     }
                 )
             } else {
