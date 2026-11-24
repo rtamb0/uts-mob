@@ -9,6 +9,6 @@ data class BarangEntity(
     val id: Int = 0,
     var namaBarang: String,
     var lokasiSimpan: String,
-    var keterangan: String? = null,
+    var keterangan: String,
     var tersedia: Boolean
 )
