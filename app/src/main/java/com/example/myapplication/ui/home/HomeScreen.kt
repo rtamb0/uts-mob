@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ object Home
 
 @Composable
 fun HomeScreen(
+    compactView : Boolean,
     barangList: List<BarangEntity>,
     onTersediaChange: (BarangEntity) -> Unit,
     onOpenDetail: (Int) -> Unit,
@@ -40,15 +43,12 @@ fun HomeScreen(
         Button(onClick = onAdd) {
             Text("Add")
         }
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            content = {
-                items(
-                    items = sortedBarangList,
-                    key = { it.id }
-                ) { barang ->
+        if (compactView) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.verticalScroll(rememberScrollState())
+            ) {
+                sortedBarangList.forEach { barang ->
                     BarangCard(
                         barang = barang,
                         onTersediaChange = {
@@ -60,6 +60,28 @@ fun HomeScreen(
                     )
                 }
             }
-        )
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                content = {
+                    items(
+                        items = sortedBarangList,
+                        key = { it.id }
+                    ) { barang ->
+                        BarangCard(
+                            barang = barang,
+                            onTersediaChange = {
+                                onTersediaChange(
+                                    barang.copy(tersedia = it)
+                                )
+                            },
+                            onOpenDetail = onOpenDetail
+                        )
+                    }
+                }
+            )
+        }
     }
 }

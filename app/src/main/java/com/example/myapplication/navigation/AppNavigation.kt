@@ -22,7 +22,7 @@ import com.example.myapplication.ui.home.HomeScreen
 import com.example.myapplication.ui.viewmodel.BarangViewModel
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(compactView : Boolean) {
     val navController = rememberNavController()
 
     val application = LocalContext.current.applicationContext as BarangApplication
@@ -39,6 +39,7 @@ fun AppNavigation() {
             val barang by barangViewModel.barang.collectAsStateWithLifecycle()
 
             HomeScreen(
+                compactView,
                 barang,
                 onTersediaChange = { updatedBarang ->
                     barangViewModel.updateBarang(
