@@ -19,9 +19,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 object BarangHome
 @Composable
-fun BarangHomeScreen(barangList: StateFlow<List<BarangEntity>>, onTersediaChange: (Boolean) -> Unit, onOpenDetail: (Int) -> Unit) {
-    val barang by barangList.collectAsStateWithLifecycle()
-
+fun BarangHomeScreen(barangList: List<BarangEntity>, onTersediaChange: (BarangEntity) -> Unit, onOpenDetail: (Int) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize()
             .padding(16.dp),
@@ -31,8 +29,15 @@ fun BarangHomeScreen(barangList: StateFlow<List<BarangEntity>>, onTersediaChange
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             content = {
-                items(barang.size) { index ->
-                    BarangCard(barang[index], onTersediaChange = onTersediaChange, onOpenDetail = onOpenDetail)
+                items(barangList.size) { index ->
+                    BarangCard(
+                        barangList[index],
+                        onTersediaChange = {
+                            onTersediaChange(
+                                barangList[index].copy(tersedia = it)
+                            )
+                        },
+                        onOpenDetail = onOpenDetail)
                 }
             }
         )
