@@ -3,8 +3,13 @@ package com.example.myapplication.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -25,7 +30,10 @@ fun AppHeader(compactView: Boolean, onCheckedChange: (Boolean) -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth()
             .background(MaterialTheme.colorScheme.secondary)
-            .padding(top = 48.dp, bottom = 16.dp, start = 16.dp, end = 16.dp,),
+            .padding(top = 48.dp, bottom = 16.dp, start = 16.dp, end = 16.dp,)
+            .windowInsetsPadding(
+            WindowInsets.navigationBars.only(WindowInsetsSides.Horizontal)
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
